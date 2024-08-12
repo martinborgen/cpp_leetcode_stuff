@@ -10,8 +10,8 @@ public:
         int cnt = 1;
         int left = 0;
         int right = cnt;
-        while (cnt <= nums.size()) {
-            while (right < nums.size() && nums[left] == nums[right]) {
+        while (left < nums.size() && right < nums.size() && cnt <= nums.size()) {
+            while (right < nums.size() - 1 && nums[left] == nums[right]) {
                 right++;
             }
             
@@ -23,7 +23,7 @@ public:
                 break;
             }
         }
-        return cnt - 1;
+        return cnt;
     }
 };
 
