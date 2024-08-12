@@ -1,3 +1,6 @@
+.vscode
+!*.cpp
+!MakeFile
 test
+main
 test.cpp
-*.exe
