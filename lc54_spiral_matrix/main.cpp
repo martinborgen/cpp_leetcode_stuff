@@ -15,7 +15,7 @@ class Solution {
 public:
     std::vector<int> spiralOrder(std::vector<std::vector<int>>& matrix) {
         const int m = matrix.size();
-        const int n = matrix.size();
+        const int n = matrix[0].size();
         std::vector<int> output;
         output.reserve(m * n);
 
@@ -25,42 +25,44 @@ public:
         int jmin = 0;
         int i = imin;
         int j = jmin;
+        
+        int right[] = {0, 1};
+        int down[] = {1, 0};
+        int left[] = {0, -1};
+        int up[] = {-1, 0};
+
+        int* dir = right;
 
         while (output.size() < m * n) {
-            for (j; j < jmax; j++) {
+            while (i <= imax && 
+                   i >= imin && 
+                   j <= jmax && 
+                   j >= jmin) {
                 output.push_back(matrix[i][j]);
+                i += dir[0];
+                j += dir[1];
             }
-            output.push_back(matrix[i][j]);
-            i++;
-            imin++;
+            i -= dir[0];
+            j -= dir[1];
 
-            if (output.size() == m * n) {
-                break;
+    
+            if (dir == right) {
+                dir = down;
+                imin++;
+            } else if (dir == down) {
+                dir = left;
+                jmax--;
+            } else if (dir == left) {
+                dir = up;
+                imax--;
+            } else if (dir == up) {
+                dir = right;
+                jmin++;
             }
 
-            for (i; i < imax; i++) {
-                output.push_back(matrix[i][j]);
-            }
-            output.push_back(matrix[i][j]);
-            j--;
-            jmax--;
-
-            for (j; j > jmin; j--) {
-                output.push_back(matrix[i][j]);
-            }
-            output.push_back(matrix[i][j]);
-            i--;
-            imax--;
-
-            for (i; i > imin; i--) {
-                output.push_back(matrix[i][j]);
-            }
-            output.push_back(matrix[i][j]);
-            j++;
-            jmin++;
+            i += dir[0];
+            j += dir[1];
         }
-
-         
 
         return output;
     }
